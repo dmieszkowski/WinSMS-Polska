@@ -97,7 +97,6 @@ namespace Com
 
         private void WebBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            webBrowser1.Show();
             Compleatcounter++;
             if (Compleatcounter < 3) return;
             var imgHTML = webBrowser1.Document.GetElementById("tokenimg");
@@ -106,13 +105,15 @@ namespace Com
             int imgW = 35;
             int imgH = 125;
             Bitmap bitmap = new Bitmap(imgW, imgH);
+            Webbrowsershow();
             Image imgCap = webBrowser1.CaptureWindow(new Rectangle(CaptchaOffsetX, CaptchaOffsetY+10, imgHTML.OffsetRectangle.Width, imgHTML.OffsetRectangle.Height));
+            WebbrowserHide();
             pictureBox1.Image = imgCap;
-            webBrowser1.Hide();
             SetReciverNumber(comboBox_recipient.SelectedValue.ToString());
             //SetSenderNumber(comboBox_sender.SelectedValue.ToString());
             SetSenderSignature(config.Signature);
 
+            setText();
             Compleatcounter = 0;
             textBox_captcha.Text = "";
             textBox_content.SelectAll();
@@ -121,6 +122,17 @@ namespace Com
             webBrowser1.DocumentCompleted -= WebBrowser1_DocumentCompleted;
             webBrowser1.DocumentCompleted += WebBrowser1_DocumentCompletedSent;
             DisableSplash();
+        }
+
+        private void WebbrowserHide()
+        {
+            webBrowser1.Location = new Point(450, webBrowser1.Location.Y);
+        }
+
+        private void Webbrowsershow()
+        {
+            webBrowser1.Location = new Point(0, webBrowser1.Location.Y);
+            webBrowser1.Show();
         }
 
         private void WebBrowser1_DocumentCompletedSent(object sender, WebBrowserDocumentCompletedEventArgs e)
@@ -294,19 +306,20 @@ namespace Com
 
         private void button_send_Click(object sender, EventArgs e)
         {
-            webBrowser1.Document.GetElementById("Send").InvokeMember("Click");
+            try
+            {
+                webBrowser1.Document.GetElementById("Send").InvokeMember("Click");
+            }
+            catch (Exception)
+            {
+                webBrowser1.DocumentCompleted -= WebBrowser1_DocumentCompletedSent;
+                loadPage();
+            }
         }
 
         private void button_addRecipient_Click(object sender, EventArgs e)
         {
-            Form_addNumber f = new Form_addNumber();
-            f.Text = "Nowy odbiorca";
-            if (f.ShowDialog() == DialogResult.OK)
-            {
-                config.Recipients.Add(new Contact() { Name = f.textBox1.Text, Number = f.textBox2.Text });
-            }
-            saveConf();
-            bindContacts();
+            AddRecipiet();
         }
 
         private void smsButton_delRecipiennt_Click(object sender, EventArgs e)
@@ -335,6 +348,27 @@ namespace Com
                 config.Senders.Remove((Contact)comboBox_sender.SelectedItem);
             comboBox_sender.DataSource = new BindingSource(config.Senders, null);
             saveConf();
+        }
+
+        private void AddRecipiet()
+        {
+            Form_addNumber f = new Form_addNumber();
+            f.Text = "Nowy odbiorca";
+            if (f.ShowDialog() == DialogResult.OK)
+            {
+                config.Recipients.Add(new Contact() { Name = f.textBox1.Text, Number = f.textBox2.Text });
+            }
+            saveConf();
+            bindContacts();
+        }
+
+        private void comboBox_recipient_Enter(object sender, EventArgs e)
+        {
+            if (config.Recipients.Count == 0)
+            {
+                AddRecipiet();
+            }
+                
         }
     }
 }

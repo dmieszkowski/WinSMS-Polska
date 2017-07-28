@@ -42,12 +42,12 @@ namespace Com
             this.label6 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.comboBox_sender = new sms.SMSComboBox();
-            this.smsButton_delSender = new sms.SMSButton();
-            this.smsButton_addSender = new sms.SMSButton();
             this.label7 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button_send = new sms.SMSButton();
+            this.comboBox_sender = new sms.SMSComboBox();
+            this.smsButton_delSender = new sms.SMSButton();
+            this.smsButton_addSender = new sms.SMSButton();
             this.smsButton_delRecipiennt = new sms.SMSButton();
             this.button_addRecipient = new sms.SMSButton();
             this.comboBox_recipient = new sms.SMSComboBox();
@@ -155,6 +155,8 @@ namespace Com
             // 
             // textBox_content
             // 
+            this.textBox_content.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.textBox_content.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.textBox_content.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.textBox_content.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox_content.ForeColor = System.Drawing.Color.DimGray;
@@ -196,8 +198,52 @@ namespace Com
             this.panel1.Controls.Add(this.smsButton_addSender);
             this.panel1.Location = new System.Drawing.Point(-4, 372);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(567, 90);
+            this.panel1.Size = new System.Drawing.Size(5007, 90);
             this.panel1.TabIndex = 100;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.Color.Silver;
+            this.label7.Location = new System.Drawing.Point(13, 362);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(89, 20);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Opcjonalne";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.pictureBox1);
+            this.panel2.Controls.Add(this.textBox_captcha);
+            this.panel2.Controls.Add(this.textBox_signature);
+            this.panel2.Controls.Add(this.label5);
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.textBox_content);
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(4)))));
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(450, 566);
+            this.panel2.TabIndex = 10;
+            // 
+            // button_send
+            // 
+            this.button_send.BackColor = System.Drawing.Color.Silver;
+            this.button_send.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.button_send.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_send.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.button_send.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.button_send.Image = global::sms.Properties.Resources.send50x50;
+            this.button_send.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button_send.Location = new System.Drawing.Point(0, 457);
+            this.button_send.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.button_send.Name = "button_send";
+            this.button_send.Size = new System.Drawing.Size(434, 67);
+            this.button_send.TabIndex = 30;
+            this.button_send.Text = "Wyślij";
+            this.button_send.UseVisualStyleBackColor = false;
+            this.button_send.Click += new System.EventHandler(this.button_send_Click);
             // 
             // comboBox_sender
             // 
@@ -240,50 +286,6 @@ namespace Com
             this.smsButton_addSender.UseVisualStyleBackColor = false;
             this.smsButton_addSender.Click += new System.EventHandler(this.smsButton_addSender_Click);
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.ForeColor = System.Drawing.Color.Silver;
-            this.label7.Location = new System.Drawing.Point(13, 362);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(89, 20);
-            this.label7.TabIndex = 2;
-            this.label7.Text = "Opcjonalne";
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.pictureBox1);
-            this.panel2.Controls.Add(this.textBox_captcha);
-            this.panel2.Controls.Add(this.textBox_signature);
-            this.panel2.Controls.Add(this.label5);
-            this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.textBox_content);
-            this.panel2.Controls.Add(this.label4);
-            this.panel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(4)))));
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(466, 566);
-            this.panel2.TabIndex = 10;
-            // 
-            // button_send
-            // 
-            this.button_send.BackColor = System.Drawing.Color.Silver;
-            this.button_send.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button_send.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_send.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button_send.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.button_send.Image = global::sms.Properties.Resources.send50x50;
-            this.button_send.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button_send.Location = new System.Drawing.Point(0, 457);
-            this.button_send.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button_send.Name = "button_send";
-            this.button_send.Size = new System.Drawing.Size(434, 67);
-            this.button_send.TabIndex = 30;
-            this.button_send.Text = "Wyślij";
-            this.button_send.UseVisualStyleBackColor = false;
-            this.button_send.Click += new System.EventHandler(this.button_send_Click);
-            // 
             // smsButton_delRecipiennt
             // 
             this.smsButton_delRecipiennt.BackColor = System.Drawing.Color.Silver;
@@ -314,6 +316,7 @@ namespace Com
             // 
             // comboBox_recipient
             // 
+            this.comboBox_recipient.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
             this.comboBox_recipient.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.comboBox_recipient.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBox_recipient.ForeColor = System.Drawing.Color.DimGray;
@@ -324,6 +327,7 @@ namespace Com
             this.comboBox_recipient.Size = new System.Drawing.Size(229, 28);
             this.comboBox_recipient.TabIndex = 0;
             this.comboBox_recipient.SelectedIndexChanged += new System.EventHandler(this.comboBox_recipient_SelectedIndexChanged);
+            this.comboBox_recipient.Enter += new System.EventHandler(this.comboBox_recipient_Enter);
             // 
             // Form1
             // 
