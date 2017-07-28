@@ -36,7 +36,8 @@ namespace Com
             {
                 var file = File.ReadAllText(configFileName);
                 config = ExtensionMethods.DeserializeJson<Config>(file);
-                bindContacts();
+                bindRecipiens();
+                bindSenders();
                 setDefault();
                 defaultReady = true;
             }
@@ -66,12 +67,16 @@ namespace Com
             //bindContacts();
         }
 
-        void bindContacts()
+        void bindRecipiens()
         {
             //comboBox_recipient.Items.Clear();
             comboBox_recipient.DisplayMember = "Fixed";
             comboBox_recipient.ValueMember = "Number";
             comboBox_recipient.DataSource = new BindingSource(config.Recipients, null);
+        }
+        void bindSenders()
+        {
+            //comboBox_recipient.Items.Clear();
 
             //comboBox_sender.Items.Clear();
             comboBox_sender.DisplayMember = "Fixed";
@@ -81,7 +86,7 @@ namespace Com
 
         private void Form1_Load(object sender, EventArgs e)
         {
-           // comboBox_recipient.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            // comboBox_recipient.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             //linkLabel_addRecipient.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             webBrowser1.ScriptErrorsSuppressed = true;
             loadPage();
@@ -101,24 +106,24 @@ namespace Com
             if (Compleatcounter < 3) return;
             var imgHTML = webBrowser1.Document.GetElementById("tokenimg");
             int CaptchaOffsetX = getXoffset(imgHTML);
-            int CaptchaOffsetY= getYoffset(imgHTML);
+            int CaptchaOffsetY = getYoffset(imgHTML);
             int imgW = 35;
             int imgH = 125;
             Bitmap bitmap = new Bitmap(imgW, imgH);
             Webbrowsershow();
-            Image imgCap = webBrowser1.CaptureWindow(new Rectangle(CaptchaOffsetX, CaptchaOffsetY+10, imgHTML.OffsetRectangle.Width, imgHTML.OffsetRectangle.Height));
+            Image imgCap = webBrowser1.CaptureWindow(new Rectangle(CaptchaOffsetX, CaptchaOffsetY + 10, imgHTML.OffsetRectangle.Width, imgHTML.OffsetRectangle.Height));
             WebbrowserHide();
             pictureBox1.Image = imgCap;
-            SetReciverNumber(comboBox_recipient.SelectedValue.ToString());
-            //SetSenderNumber(comboBox_sender.SelectedValue.ToString());
+            SetReciverNumber(comboBox_recipient.SelectedValue?.ToString());
+            SetSenderNumber(comboBox_sender.SelectedValue?.ToString());
             SetSenderSignature(config.Signature);
 
             setText();
-            Compleatcounter = 0;
             textBox_captcha.Text = "";
             textBox_content.SelectAll();
             textBox_content.Focus();
-           
+
+            Compleatcounter = 0;
             webBrowser1.DocumentCompleted -= WebBrowser1_DocumentCompleted;
             webBrowser1.DocumentCompleted += WebBrowser1_DocumentCompletedSent;
             DisableSplash();
@@ -138,18 +143,24 @@ namespace Com
         private void WebBrowser1_DocumentCompletedSent(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
             Compleatcounter++;
-            if (Compleatcounter < 2) return;
 
             if (webBrowser1.Document.Body.InnerText.Contains(@"adresat wiadomości nie ma aktywnej "))
             {
                 MessageBox.Show("Wiadomość nie została dostarczona, gdyż adresat wiadomości nie ma aktywnej usługi SMS z Internetu. Jeśli adresat posiada telefon w sieci Orange, to został on powiadomiony, że oczekuje na niego wiadomość i musi aktywować usługę SMS z Internetu, żeby ją otrzymać. Żeby aktywować usługę SMS z Internetu wystarczy wysłać ze swojego telefonu SMSa o treści INTERNET na numer 102 (koszt jak za zwykły SMS).");
                 webBrowser1.DocumentCompleted -= WebBrowser1_DocumentCompletedSent;
                 loadPage();
-                }
+            }
 
             if (webBrowser1.Document.Body.InnerText.Contains("wysłana"))
             {
                 MessageBox.Show("Wiadomość wysłana");
+                webBrowser1.DocumentCompleted -= WebBrowser1_DocumentCompletedSent;
+                loadPage();
+            }
+
+            if (webBrowser1.Document.Body.InnerText.Contains("Podano błędne hasło, SMS nie został wysłany"))
+            {
+                MessageBox.Show("Podano błędny kod z obrazka, SMS nie został wysłany", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 webBrowser1.DocumentCompleted -= WebBrowser1_DocumentCompletedSent;
                 loadPage();
             }
@@ -169,7 +180,7 @@ namespace Com
             }
             catch (Exception ex)
             {
-            }  
+            }
         }
 
         private void setPhoneNumberOption()
@@ -315,7 +326,22 @@ namespace Com
         {
             try
             {
+                if (textBox_content.Text.Length == 0)
+                {
+                    MessageBox.Show("Wpisz treść");
+                    return;
+                }
+                if (textBox_captcha.Text.Length == 0)
+                {
+                    MessageBox.Show("Przepisz poprawnie kod z obrazka");
+                    return;
+                }
+
                 webBrowser1.Document.GetElementById("Send").InvokeMember("Click");
+                if (webBrowser1.Document.Body.InnerText.Contains("Wpisz nr tel"))
+                {
+                    MessageBox.Show("Numer odbiorcy nie jest prawidłowy");
+                }
             }
             catch (Exception)
             {
@@ -346,7 +372,7 @@ namespace Com
                 config.Senders.Add(new Contact() { Name = f.textBox1.Text, Number = f.textBox2.Text });
             }
             saveConf();
-            bindContacts();
+            bindSenders();
         }
 
         private void smsButton_delSender_Click(object sender, EventArgs e)
@@ -366,7 +392,7 @@ namespace Com
                 config.Recipients.Add(new Contact() { Name = f.textBox1.Text, Number = f.textBox2.Text });
             }
             saveConf();
-            bindContacts();
+            bindRecipiens();
         }
 
         private void comboBox_recipient_Enter(object sender, EventArgs e)
@@ -375,7 +401,7 @@ namespace Com
             {
                 AddRecipiet();
             }
-                
+
         }
     }
 }
