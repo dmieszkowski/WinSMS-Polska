@@ -140,6 +140,13 @@ namespace Com
             Compleatcounter++;
             if (Compleatcounter < 2) return;
 
+            if (webBrowser1.Document.Body.InnerText.Contains(@"adresat wiadomości nie ma aktywnej "))
+            {
+                MessageBox.Show("Wiadomość nie została dostarczona, gdyż adresat wiadomości nie ma aktywnej usługi SMS z Internetu. Jeśli adresat posiada telefon w sieci Orange, to został on powiadomiony, że oczekuje na niego wiadomość i musi aktywować usługę SMS z Internetu, żeby ją otrzymać. Żeby aktywować usługę SMS z Internetu wystarczy wysłać ze swojego telefonu SMSa o treści INTERNET na numer 102 (koszt jak za zwykły SMS).");
+                webBrowser1.DocumentCompleted -= WebBrowser1_DocumentCompletedSent;
+                loadPage();
+                }
+
             if (webBrowser1.Document.Body.InnerText.Contains("wysłana"))
             {
                 MessageBox.Show("Wiadomość wysłana");
