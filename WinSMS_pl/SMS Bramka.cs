@@ -43,7 +43,7 @@ namespace Com
             }
             catch (Exception)
             {
-                MessageBox.Show("Witaj, mam nadzieje, że będę dla Ciebie przydatnym narzędziem.");
+               // MessageBox.Show("Brak konfiguracji.");
             }
         }
 
