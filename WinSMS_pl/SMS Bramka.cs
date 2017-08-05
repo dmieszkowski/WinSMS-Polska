@@ -132,6 +132,7 @@ namespace Com
         private void WebbrowserHide()
         {
             webBrowser1.Location = new Point(450, webBrowser1.Location.Y);
+            webBrowser1.Hide();
         }
 
         private void Webbrowsershow()
