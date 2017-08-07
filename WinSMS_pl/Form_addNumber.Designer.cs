@@ -30,11 +30,12 @@ namespace Com
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_addNumber));
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.button1 = new sms.SMSButton();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.button1 = new sms.SMSButton();
             this.SuspendLayout();
             // 
             // textBox1
@@ -59,20 +60,6 @@ namespace Com
             this.textBox2.Size = new System.Drawing.Size(169, 20);
             this.textBox2.TabIndex = 1;
             // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.Silver;
-            this.button1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(0, 65);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(238, 41);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Zapisz";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -95,6 +82,20 @@ namespace Com
             this.label3.TabIndex = 2;
             this.label3.Text = "Numer";
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Silver;
+            this.button1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(0, 65);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(238, 41);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Zapisz";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form_addNumber
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
@@ -108,6 +109,7 @@ namespace Com
             this.Controls.Add(this.textBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_addNumber";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_addNumber";

@@ -398,7 +398,7 @@ namespace Com
 
         private void comboBox_recipient_Enter(object sender, EventArgs e)
         {
-            if (config.Recipients.Count == 0)
+            while(config.Recipients.Count == 0)
             {
                 AddRecipiet();
             }

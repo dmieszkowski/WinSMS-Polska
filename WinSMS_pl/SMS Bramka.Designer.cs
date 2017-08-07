@@ -30,6 +30,7 @@ namespace Com
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label1 = new System.Windows.Forms.Label();
             this.label_sender = new System.Windows.Forms.Label();
             this.textBox_signature = new System.Windows.Forms.TextBox();
@@ -42,9 +43,9 @@ namespace Com
             this.label_senderDescription = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.comboBox_sender = new sms.SMSComboBox();
             this.smsButton_delSender = new sms.SMSButton();
             this.smsButton_addSender = new sms.SMSButton();
+            this.comboBox_sender = new sms.SMSComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.button_send = new sms.SMSButton();
@@ -203,19 +204,6 @@ namespace Com
             this.panel1.Size = new System.Drawing.Size(3000, 59);
             this.panel1.TabIndex = 100;
             // 
-            // comboBox_sender
-            // 
-            this.comboBox_sender.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.comboBox_sender.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.comboBox_sender.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox_sender.ForeColor = System.Drawing.Color.DimGray;
-            this.comboBox_sender.FormattingEnabled = true;
-            this.comboBox_sender.Location = new System.Drawing.Point(1420, 12);
-            this.comboBox_sender.Name = "comboBox_sender";
-            this.comboBox_sender.Size = new System.Drawing.Size(154, 21);
-            this.comboBox_sender.TabIndex = 10;
-            this.comboBox_sender.SelectedIndexChanged += new System.EventHandler(this.comboBox_sender_SelectedIndexChanged);
-            // 
             // smsButton_delSender
             // 
             this.smsButton_delSender.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -247,6 +235,19 @@ namespace Com
             this.smsButton_addSender.Text = "+";
             this.smsButton_addSender.UseVisualStyleBackColor = false;
             this.smsButton_addSender.Click += new System.EventHandler(this.smsButton_addSender_Click);
+            // 
+            // comboBox_sender
+            // 
+            this.comboBox_sender.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.comboBox_sender.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.comboBox_sender.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox_sender.ForeColor = System.Drawing.Color.DimGray;
+            this.comboBox_sender.FormattingEnabled = true;
+            this.comboBox_sender.Location = new System.Drawing.Point(1420, 12);
+            this.comboBox_sender.Name = "comboBox_sender";
+            this.comboBox_sender.Size = new System.Drawing.Size(154, 21);
+            this.comboBox_sender.TabIndex = 10;
+            this.comboBox_sender.SelectedIndexChanged += new System.EventHandler(this.comboBox_sender_SelectedIndexChanged);
             // 
             // label7
             // 
@@ -358,6 +359,7 @@ namespace Com
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "WinSMS - Polska";
