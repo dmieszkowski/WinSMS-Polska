@@ -10,8 +10,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Daniel Mieszkowski")]
-[assembly: AssemblyCopyright("Copyright Daniel Mieszkowski ©  2017")]
+[assembly: AssemblyProduct("pcmagic.pl")]
+[assembly: AssemblyCopyright("Copyright pcmagic.pl ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
